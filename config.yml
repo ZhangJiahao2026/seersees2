@@ -1,0 +1,88 @@
+baseURL: "https://your-blog.pages.dev/"
+languageCode: "zh-cn"
+defaultContentLanguage: "zh-cn"
+title: "我的博客"
+theme: "PaperMod"
+environment: "production"
+enableRobotsTXT: true
+
+# ---- 永久链接 ----
+# :slug 优先使用 Front Matter 里的 slug 字段（推荐写英文），没有则 fallback 到 :title
+permalinks:
+  posts: /posts/:slug/
+
+# ---- 自定义输出格式（llms.txt 给 AI 大模型读取站点目录） ----
+# Hugo v0.134.0 未内置 LLMS 格式，这里手动注册
+outputFormats:
+  LLMS:
+    mediaType: text/plain
+    baseName: llms
+    isPlainText: true
+    notAlternative: true
+
+# ---- 输出格式 ----
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+    - LLMS
+  section:
+    - HTML
+    - RSS
+  taxonomy:
+    - HTML
+    - RSS
+  term:
+    - HTML
+    - RSS
+
+# ---- Sitemap ----
+sitemap:
+  changefreq: weekly
+  filename: sitemap.xml
+  priority: 0.5
+
+# ---- Markdown 渲染配置 ----
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  tableOfContents:
+    startLevel: 2
+    endLevel: 4
+
+# ---- 参数 ----
+params:
+  # 站点简介
+  description: "一个专注于技术分享和 AI 前沿探索的博客"
+  keywords: ["博客", "技术", "AI", "编程"]
+  author: "作者名"
+
+  # 主 section（首页只列出 posts）
+  mainSections:
+    - posts
+
+  # ---- PaperMod 功能开关：全部关闭不必要的 JS / 交互 ----
+  disableThemeToggle: true      # 关闭深浅色切换按钮及其 JS
+  ShowShareButtons: false        # 关闭分享按钮
+  ShowPostNavLinks: false        # 关闭上一篇 / 下一篇导航（按需求仅保留返回首页）
+  ShowBreadCrumbs: true          # 保留面包屑（SEO 友好）
+  ShowCodeCopyButtons: false     # 关闭代码复制按钮（避免额外 JS）
+  disableSpecial1stPost: true
+  hideAuthor: false
+
+  # ---- 主题切换策略（固定浅色，避免 JS 判断） ----
+  defaultTheme: light
+  disableScrollBarStyle: true    # 关闭自定义滚动条 CSS
+
+  # ---- OG / Schema.org Publisher ----
+  schema:
+    publisherType: Person
+    sameAs: []
+
+  # ---- 资源指纹（关闭会让 URL 固定，利于缓存与爬虫） ----
+  assets:
+    disableFingerprinting: false
+    theme_color: "#ffffff"
+    msapplication_TileColor: "#ffffff"

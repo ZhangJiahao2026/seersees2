@@ -1,0 +1,44 @@
+{{- /*
+  robots.txt —— 放行所有 AI 爬虫 / 智能体，指向 sitemap.xml
+  重点声明: GPTBot, ClaudeBot, Google-Extended, CCBot, Perplexity-User-Agent,
+           Applebot, Bytespider, Amazonbot, 以及通用爬虫
+*/ -}}
+User-agent: *
+Allow: /
+Disallow:
+
+{{- /* 显式放行各主流 AI 爬虫（虽然 User-agent: * 已覆盖，这里声明确认） */ -}}
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Perplexity-User-Agent
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Anthropic-Web
+Allow: /
+
+User-agent: Ai2Bot
+Allow: /
+
+Sitemap: {{ "sitemap.xml" | absURL }}

@@ -1,0 +1,28 @@
+{{- /*
+  extend_head.html —— 追加到 <head> 尾部的自定义内容
+  PaperMod 已内置 canonical / OG / schema.json（生产环境输出）
+  这里补充：Twitter/X cards（补齐图片 alt 语义）、AI 友好的附加 meta
+*/ -}}
+
+{{- /* 页面级 og:type 明确标注（首页和 section 为 website，文章为 article） */ -}}
+{{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+
+{{- /* Twitter Cards —— 主题内置了 opengraph，但 twitter_cards 由主题自己控制是否输出 */ -}}
+{{ template "partials/templates/twitter_cards.html" . }}
+
+{{- /* author link rel（如果文章有 author 字段） */ -}}
+{{- with (.Params.author | default site.Params.author) }}
+<link rel="author" href="{{ "/" | absURL }}">
+{{- end }}
+
+{{- /* 显式声明 content-language */ -}}
+<meta http-equiv="content-language" content="{{ site.Language.Lang | default "zh-cn" }}">
+
+{{- /* 站点为 LLM 友好的补充 meta（非标准，但部分爬虫识别） */ -}}
+{{- if .IsHome }}
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+{{- else if .IsPage }}
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+{{- end }}
+
+{{- end -}}

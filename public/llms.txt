@@ -1,0 +1,7 @@
+# 我的博客
+
+> 一个专注于技术分享和 AI 前沿探索的博客
+> https://your-blog.pages.dev/
+> Last updated: 2026-10-19
+# Posts
+- [Hugo 入门：从零搭建一个 AI 友好的静态博客](https://your-blog.pages.dev/posts/hugo-getting-started/) — 手把手教你用 Hugo + PaperMod 搭建一个面向 Cloudflare Pages 部署、高度优化的 AI 友好静态博客

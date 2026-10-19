@@ -1,0 +1,30 @@
+{{- /*
+  llms.txt —— 专门面向 AI 大模型（LLM / AI Agent）的站点目录索引
+  规范: https://llmstxt.org/
+*/ -}}
+# {{ site.Title }}
+
+> {{ with site.Params.description }}{{ . }}{{ end }}
+> {{ with site.Home.Permalink }}{{ . }}{{ end }}
+> Last updated: {{ now.Format "2006-01-02" }}
+
+{{- /* ===== 站点目录 ===== */ -}}
+{{- define "llms_section" -}}
+{{- $section := .section -}}
+{{- $depth := .depth -}}
+{{- if or (gt (len $section.RegularPages) 0) (gt (len $section.Sections) 0) -}}
+{{- $hash := strings.Repeat (add $depth 1) "#" }}
+{{ $hash }} {{ $section.Title }}
+
+{{- range $p := $section.RegularPages }}
+- [{{ $p.Title }}]({{ $p.Permalink }}){{ with $p.Description }} — {{ plainify . }}{{ end }}
+{{- end }}
+{{- range $s := $section.Sections }}
+{{- template "llms_section" (dict "section" $s "depth" (add $depth 1)) }}
+{{- end }}
+{{- end }}
+{{- end -}}
+
+{{- range site.Sections }}
+{{- template "llms_section" (dict "section" . "depth" 0) }}
+{{- end }}
